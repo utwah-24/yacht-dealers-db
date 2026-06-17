@@ -2,8 +2,71 @@
 
 @source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
 @source '../../storage/framework/views/*.php';
+@source '../**/*.blade.php';
 
 @theme {
     --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
         'Segoe UI Symbol', 'Noto Color Emoji';
+    --color-yd-green: #1b4332;
+    --color-yd-green-light: #d8f3dc;
+    --color-yd-green-soft: #eef6f1;
+    --color-yd-page: #f3f4f6;
+    --color-yd-line: #e5e7eb;
+}
+
+@layer base {
+    html,
+    body {
+        height: 100%;
+    }
+
+    body {
+        @apply bg-yd-page text-gray-900 antialiased;
+    }
+}
+
+@layer components {
+    .yd-card {
+        @apply rounded-2xl border border-yd-line bg-white p-5 shadow-[0_1px_2px_rgba(16,24,40,0.05)];
+    }
+
+    .yd-nav-link {
+        @apply flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium text-gray-600 transition-colors hover:bg-yd-green-soft hover:text-yd-green;
+    }
+
+    .yd-nav-link-active {
+        @apply bg-yd-green-soft text-yd-green;
+    }
+
+    .yd-section-title {
+        @apply mb-2 px-3 text-[11px] font-semibold tracking-[0.08em] text-gray-400 uppercase;
+    }
+
+    .yd-kpi-value {
+        @apply mt-3 text-[28px] leading-none font-semibold tracking-tight text-gray-900;
+    }
+
+    .yd-trend-up {
+        @apply inline-flex items-center gap-1 rounded-md bg-emerald-50 px-1.5 py-0.5 text-xs font-medium text-emerald-700;
+    }
+
+    .yd-trend-down {
+        @apply inline-flex items-center gap-1 rounded-md bg-red-50 px-1.5 py-0.5 text-xs font-medium text-red-600;
+    }
+
+    .yd-table thead tr {
+        @apply border-b border-yd-line bg-gray-50 text-xs font-semibold tracking-wide text-gray-500 uppercase;
+    }
+
+    .yd-table thead th {
+        @apply px-5 py-3;
+    }
+
+    .yd-table tbody tr {
+        @apply border-b border-yd-line last:border-0 hover:bg-gray-50/80;
+    }
+
+    .yd-table tbody td {
+        @apply px-5 py-3.5 text-gray-600;
+    }
 }

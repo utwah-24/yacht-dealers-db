@@ -1,0 +1,1313 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Yacht Dealers API",
+        "description": "REST API for catamaran charters, bookings, guests, summaries, and personal requests in Dar es Salaam and Zanzibar.",
+        "version": "1.0.0"
+    },
+    "servers": [
+        {
+            "url": "/api/v1",
+            "description": "API v1"
+        }
+    ],
+    "paths": {
+        "/bookings": {
+            "get": {
+                "tags": [
+                    "Bookings"
+                ],
+                "summary": "List all bookings",
+                "operationId": "c700ae240419bd8c3e4383d1de6c228e",
+                "responses": {
+                    "200": {
+                        "description": "Successful response"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Bookings"
+                ],
+                "summary": "Create a booking",
+                "operationId": "370f7a442431caac3f3d940cee5cad2a",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "catamaran_id",
+                                    "location_type",
+                                    "charter_type",
+                                    "duration",
+                                    "charter_price"
+                                ],
+                                "properties": {
+                                    "catamaran_id": {
+                                        "type": "integer",
+                                        "example": 1
+                                    },
+                                    "catamaran_name": {
+                                        "type": "string",
+                                        "example": "Ocean Spirit"
+                                    },
+                                    "location_type": {
+                                        "type": "string",
+                                        "enum": [
+                                            "dar_es_salaam",
+                                            "zanzibar"
+                                        ]
+                                    },
+                                    "charter_type": {
+                                        "type": "string",
+                                        "enum": [
+                                            "half_day",
+                                            "full_day",
+                                            "live_onboard"
+                                        ]
+                                    },
+                                    "duration": {
+                                        "description": "Charter duration in hours",
+                                        "type": "integer",
+                                        "example": 4
+                                    },
+                                    "charter_price": {
+                                        "type": "number",
+                                        "format": "float",
+                                        "example": 500
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Booking created"
+                    },
+                    "422": {
+                        "description": "Validation error"
+                    }
+                }
+            }
+        },
+        "/catamarans/{catamaranId}/bookings": {
+            "get": {
+                "tags": [
+                    "Bookings"
+                ],
+                "summary": "List bookings for a catamaran",
+                "operationId": "ca9218b8e813350256c7dad945f164e1",
+                "parameters": [
+                    {
+                        "name": "catamaranId",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful response"
+                    },
+                    "404": {
+                        "description": "Catamaran not found"
+                    }
+                }
+            }
+        },
+        "/bookings/{id}": {
+            "get": {
+                "tags": [
+                    "Bookings"
+                ],
+                "summary": "Get booking details",
+                "operationId": "6a8d98e14bc6c402f6ff907da0a0a78e",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful response"
+                    },
+                    "404": {
+                        "description": "Booking not found"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Bookings"
+                ],
+                "summary": "Update a booking",
+                "operationId": "aa2cd270032f3d408f1afd6113aa6a57",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "catamaran_id": {
+                                        "type": "integer"
+                                    },
+                                    "catamaran_name": {
+                                        "type": "string"
+                                    },
+                                    "location_type": {
+                                        "type": "string",
+                                        "enum": [
+                                            "dar_es_salaam",
+                                            "zanzibar"
+                                        ]
+                                    },
+                                    "charter_type": {
+                                        "type": "string",
+                                        "enum": [
+                                            "half_day",
+                                            "full_day",
+                                            "live_onboard"
+                                        ]
+                                    },
+                                    "duration": {
+                                        "description": "Charter duration in hours",
+                                        "type": "integer"
+                                    },
+                                    "charter_price": {
+                                        "type": "number",
+                                        "format": "float"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Booking updated"
+                    },
+                    "404": {
+                        "description": "Booking not found"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Bookings"
+                ],
+                "summary": "Delete a booking",
+                "operationId": "1b57d2c724e2fe3f58f404de150f30f0",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Booking deleted"
+                    },
+                    "404": {
+                        "description": "Booking not found"
+                    }
+                }
+            }
+        },
+        "/catamarans": {
+            "get": {
+                "tags": [
+                    "Catamarans"
+                ],
+                "summary": "List all catamarans",
+                "operationId": "027877edd08f2ce3d7d588fdb7e84f31",
+                "responses": {
+                    "200": {
+                        "description": "Successful response"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Catamarans"
+                ],
+                "summary": "Create a catamaran",
+                "operationId": "29009fe799fba5263b846ecd3cd5b0dd",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "name",
+                                    "services_provided",
+                                    "description"
+                                ],
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "example": "Ocean Spirit"
+                                    },
+                                    "services_provided": {
+                                        "type": "string",
+                                        "example": "Snorkeling, fishing"
+                                    },
+                                    "description": {
+                                        "type": "string",
+                                        "example": "Luxury 45ft catamaran"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Catamaran created"
+                    },
+                    "422": {
+                        "description": "Validation error"
+                    }
+                }
+            }
+        },
+        "/catamarans/{id}": {
+            "get": {
+                "tags": [
+                    "Catamarans"
+                ],
+                "summary": "Get catamaran details",
+                "operationId": "1cb8a3fbc2cd25a58245950ce9254e27",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful response"
+                    },
+                    "404": {
+                        "description": "Catamaran not found"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Catamarans"
+                ],
+                "summary": "Update a catamaran",
+                "operationId": "3fda77ee419140eaceb21efdb265f1c6",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "name": {
+                                        "type": "string"
+                                    },
+                                    "services_provided": {
+                                        "type": "string"
+                                    },
+                                    "description": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Catamaran updated"
+                    },
+                    "404": {
+                        "description": "Catamaran not found"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Catamarans"
+                ],
+                "summary": "Delete a catamaran",
+                "operationId": "a8f3c6eea182aafc9211bcb4c9531fad",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Catamaran deleted"
+                    },
+                    "404": {
+                        "description": "Catamaran not found"
+                    }
+                }
+            }
+        },
+        "/catamarans/{catamaranId}/photos": {
+            "post": {
+                "tags": [
+                    "Photos"
+                ],
+                "summary": "Add a photo to a catamaran",
+                "operationId": "466e57df44f324c325461b7e6e18d662",
+                "parameters": [
+                    {
+                        "name": "catamaranId",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "path"
+                                ],
+                                "properties": {
+                                    "path": {
+                                        "type": "string",
+                                        "example": "/storage/catamarans/ocean-spirit.jpg"
+                                    },
+                                    "caption": {
+                                        "type": "string",
+                                        "example": "Deck view"
+                                    },
+                                    "sort_order": {
+                                        "type": "integer",
+                                        "example": 0
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Photo created"
+                    },
+                    "404": {
+                        "description": "Catamaran not found"
+                    }
+                }
+            }
+        },
+        "/photos/{id}": {
+            "delete": {
+                "tags": [
+                    "Photos"
+                ],
+                "summary": "Delete a catamaran photo",
+                "operationId": "b156075f3d7445b32d9346f522ad6fc4",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Photo deleted"
+                    },
+                    "404": {
+                        "description": "Photo not found"
+                    }
+                }
+            }
+        },
+        "/catamarans/{catamaranId}/routes": {
+            "post": {
+                "tags": [
+                    "Routes"
+                ],
+                "summary": "Add a route to a catamaran",
+                "operationId": "d7042db96f599a9f773dfa3181c41aad",
+                "parameters": [
+                    {
+                        "name": "catamaranId",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "departure",
+                                    "destinations"
+                                ],
+                                "properties": {
+                                    "departure": {
+                                        "type": "string",
+                                        "example": "Dar es Salaam Marina"
+                                    },
+                                    "destinations": {
+                                        "type": "array",
+                                        "items": {
+                                            "type": "string"
+                                        },
+                                        "example": [
+                                            "Bongoyo Island",
+                                            "Mbudya Island"
+                                        ]
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Route created"
+                    },
+                    "404": {
+                        "description": "Catamaran not found"
+                    }
+                }
+            }
+        },
+        "/routes/{id}": {
+            "put": {
+                "tags": [
+                    "Routes"
+                ],
+                "summary": "Update a catamaran route",
+                "operationId": "87b75e1eb038262fea701b40cd35291f",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "departure": {
+                                        "type": "string"
+                                    },
+                                    "destinations": {
+                                        "type": "array",
+                                        "items": {
+                                            "type": "string"
+                                        }
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Route updated"
+                    },
+                    "404": {
+                        "description": "Route not found"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Routes"
+                ],
+                "summary": "Delete a catamaran route",
+                "operationId": "4e972f4da949561accb078635e310185",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Route deleted"
+                    },
+                    "404": {
+                        "description": "Route not found"
+                    }
+                }
+            }
+        },
+        "/bookings/{bookingId}/extras": {
+            "post": {
+                "tags": [
+                    "Extras"
+                ],
+                "summary": "Add or replace extras for a booking",
+                "operationId": "17ccc9b074801d4901a9c23ac8e6b181",
+                "parameters": [
+                    {
+                        "name": "bookingId",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "additional_services",
+                                    "additional_cost",
+                                    "status"
+                                ],
+                                "properties": {
+                                    "additional_services": {
+                                        "type": "string",
+                                        "example": "Snorkeling gear rental"
+                                    },
+                                    "additional_cost": {
+                                        "type": "number",
+                                        "format": "float",
+                                        "example": 75
+                                    },
+                                    "status": {
+                                        "type": "boolean",
+                                        "example": true
+                                    },
+                                    "description": {
+                                        "type": "string",
+                                        "example": "Full snorkeling set for 4 guests"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Extras saved"
+                    },
+                    "404": {
+                        "description": "Booking not found"
+                    }
+                }
+            }
+        },
+        "/bookings/{bookingId}/guest": {
+            "get": {
+                "tags": [
+                    "Guests"
+                ],
+                "summary": "Get guest details for a booking",
+                "operationId": "c5c675da74ffaf8b36abf24f531f05fa",
+                "parameters": [
+                    {
+                        "name": "bookingId",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful response"
+                    },
+                    "404": {
+                        "description": "Booking or guest not found"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Guests"
+                ],
+                "summary": "Add or replace guest details for a booking",
+                "operationId": "37850c4113ba8b2f44b8f5cd55737219",
+                "parameters": [
+                    {
+                        "name": "bookingId",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "name",
+                                    "date",
+                                    "phone_number",
+                                    "email",
+                                    "number_of_passengers"
+                                ],
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "example": "Utwah Mwingira"
+                                    },
+                                    "date": {
+                                        "type": "string",
+                                        "format": "date",
+                                        "example": "2026-06-17"
+                                    },
+                                    "phone_number": {
+                                        "type": "string",
+                                        "example": "0613062067"
+                                    },
+                                    "email": {
+                                        "type": "string",
+                                        "format": "email",
+                                        "example": "guest@example.com"
+                                    },
+                                    "number_of_passengers": {
+                                        "type": "integer",
+                                        "example": 2
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Guest saved"
+                    },
+                    "404": {
+                        "description": "Booking not found"
+                    }
+                }
+            }
+        },
+        "/guests/{id}": {
+            "put": {
+                "tags": [
+                    "Guests"
+                ],
+                "summary": "Update guest details",
+                "operationId": "978244f7244a2b29af0c3517d31af9ac",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "name": {
+                                        "type": "string"
+                                    },
+                                    "date": {
+                                        "type": "string",
+                                        "format": "date"
+                                    },
+                                    "phone_number": {
+                                        "type": "string"
+                                    },
+                                    "email": {
+                                        "type": "string",
+                                        "format": "email"
+                                    },
+                                    "number_of_passengers": {
+                                        "type": "integer"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Guest updated"
+                    },
+                    "404": {
+                        "description": "Guest not found"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Guests"
+                ],
+                "summary": "Delete guest details",
+                "operationId": "33f7f1b8ea19ac0915228fa43a275ec9",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Guest deleted"
+                    },
+                    "404": {
+                        "description": "Guest not found"
+                    }
+                }
+            }
+        },
+        "/personal-requests/{personalRequestId}/others": {
+            "get": {
+                "tags": [
+                    "Others"
+                ],
+                "summary": "List others for a personal request",
+                "operationId": "d1b2dd99a1aeca2605513864edb07593",
+                "parameters": [
+                    {
+                        "name": "personalRequestId",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful response"
+                    },
+                    "404": {
+                        "description": "Personal request not found"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Others"
+                ],
+                "summary": "Add an other detail to a personal request",
+                "operationId": "20d15d8c6a2b2229f001f6e64bbdc02a",
+                "parameters": [
+                    {
+                        "name": "personalRequestId",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "type"
+                                ],
+                                "properties": {
+                                    "type": {
+                                        "type": "string",
+                                        "example": "allergies"
+                                    },
+                                    "description": {
+                                        "type": "string",
+                                        "example": "Shellfish allergy"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Other detail created"
+                    },
+                    "404": {
+                        "description": "Personal request not found"
+                    }
+                }
+            }
+        },
+        "/others/{id}": {
+            "put": {
+                "tags": [
+                    "Others"
+                ],
+                "summary": "Update an other detail",
+                "operationId": "8fa5007a32ed203d6df2d0f185b073e1",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "type": {
+                                        "type": "string"
+                                    },
+                                    "description": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Other detail updated"
+                    },
+                    "404": {
+                        "description": "Other detail not found"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Others"
+                ],
+                "summary": "Delete an other detail",
+                "operationId": "d3c0f9caa79a2054a28e4c6379fd4416",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Other detail deleted"
+                    },
+                    "404": {
+                        "description": "Other detail not found"
+                    }
+                }
+            }
+        },
+        "/bookings/{bookingId}/personal-requests": {
+            "get": {
+                "tags": [
+                    "Personal Requests"
+                ],
+                "summary": "List personal requests for a booking",
+                "operationId": "4f9e4d92460fbc7d44598328c1ac0914",
+                "parameters": [
+                    {
+                        "name": "bookingId",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful response"
+                    },
+                    "404": {
+                        "description": "Booking not found"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Personal Requests"
+                ],
+                "summary": "Add a personal request to a booking",
+                "operationId": "da440546ce045a022a9f3f0ece419baa",
+                "parameters": [
+                    {
+                        "name": "bookingId",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "reg",
+                                    "status"
+                                ],
+                                "properties": {
+                                    "reg": {
+                                        "type": "string",
+                                        "example": "PASS-001"
+                                    },
+                                    "status": {
+                                        "type": "boolean",
+                                        "example": true
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Personal request created"
+                    },
+                    "404": {
+                        "description": "Booking not found"
+                    }
+                }
+            }
+        },
+        "/personal-requests/{id}": {
+            "put": {
+                "tags": [
+                    "Personal Requests"
+                ],
+                "summary": "Update a personal request",
+                "operationId": "b313ad61ebbbdfd378418fa7c00e38ef",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "reg": {
+                                        "type": "string"
+                                    },
+                                    "status": {
+                                        "type": "boolean"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Personal request updated"
+                    },
+                    "404": {
+                        "description": "Personal request not found"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Personal Requests"
+                ],
+                "summary": "Delete a personal request",
+                "operationId": "24bd44b07ec0ed284981b849bd166853",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Personal request deleted"
+                    },
+                    "404": {
+                        "description": "Personal request not found"
+                    }
+                }
+            }
+        },
+        "/bookings/{bookingId}/summary": {
+            "get": {
+                "tags": [
+                    "Summaries"
+                ],
+                "summary": "Get order summary for a booking",
+                "operationId": "2b8bb3e9f70f1e620a86e374e89d0d68",
+                "parameters": [
+                    {
+                        "name": "bookingId",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful response"
+                    },
+                    "404": {
+                        "description": "Booking or summary not found"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Summaries"
+                ],
+                "summary": "Create or replace order summary for a booking",
+                "operationId": "3790dcb27fe8c57d4d3fc3061e46ebd3",
+                "parameters": [
+                    {
+                        "name": "bookingId",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "catamaran_photo_id"
+                                ],
+                                "properties": {
+                                    "guest_id": {
+                                        "type": "integer",
+                                        "example": 1
+                                    },
+                                    "catamaran_photo_id": {
+                                        "description": "Foreign key to catamaran_photos",
+                                        "type": "integer",
+                                        "example": 1
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Summary saved"
+                    },
+                    "404": {
+                        "description": "Booking not found"
+                    }
+                }
+            }
+        },
+        "/summaries/{id}": {
+            "put": {
+                "tags": [
+                    "Summaries"
+                ],
+                "summary": "Update order summary",
+                "operationId": "99e776f8096ba9148783117db92236de",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "guest_id": {
+                                        "type": "integer"
+                                    },
+                                    "catamaran_photo_id": {
+                                        "description": "Foreign key to catamaran_photos",
+                                        "type": "integer"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Summary updated"
+                    },
+                    "404": {
+                        "description": "Summary not found"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Summaries"
+                ],
+                "summary": "Delete order summary",
+                "operationId": "98ddc32ef86abef6cf77263f2d96ef29",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Summary deleted"
+                    },
+                    "404": {
+                        "description": "Summary not found"
+                    }
+                }
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "Catamarans",
+            "description": "Yacht catalog management"
+        },
+        {
+            "name": "Photos",
+            "description": "Catamaran photo management"
+        },
+        {
+            "name": "Routes",
+            "description": "Catamaran route management"
+        },
+        {
+            "name": "Bookings",
+            "description": "Charter booking management"
+        },
+        {
+            "name": "Extras",
+            "description": "Booking additional services"
+        },
+        {
+            "name": "Personal Requests",
+            "description": "Personal requests linked to bookings"
+        },
+        {
+            "name": "Others",
+            "description": "Additional details for personal requests"
+        },
+        {
+            "name": "Guests",
+            "description": "Guest contact details for bookings"
+        },
+        {
+            "name": "Summaries",
+            "description": "Order summary linking booking, guest, and catamaran photo"
+        }
+    ]
+}
