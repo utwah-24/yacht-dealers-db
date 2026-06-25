@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Web;
 use App\Http\Controllers\Controller;
 use App\Models\Booking;
 use App\Models\Catamaran;
+use App\Models\CatamaranPhoto;
 use App\Models\Guest;
 use App\Models\Route;
 use App\Models\Summary;
@@ -19,7 +20,14 @@ class PageController extends Controller
             ->latest()
             ->get();
 
-        return view('pages.catamarans', compact('catamarans'));
+        $photos = CatamaranPhoto::query()
+            ->with('catamaran')
+            ->orderBy('catamaran_id')
+            ->orderBy('sort_order')
+            ->latest()
+            ->get();
+
+        return view('pages.catamarans', compact('catamarans', 'photos'));
     }
 
     public function bookings(): View

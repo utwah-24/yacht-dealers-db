@@ -42,6 +42,58 @@
         @apply mb-2 px-3 text-[11px] font-semibold tracking-[0.08em] text-gray-400 uppercase;
     }
 
+    .yd-btn-primary {
+        @apply inline-flex items-center gap-2 rounded-lg bg-yd-green px-4 py-2 text-sm font-medium text-white shadow-sm transition hover:bg-[#153d2e];
+    }
+
+    .yd-btn-secondary {
+        @apply inline-flex items-center gap-2 rounded-lg border border-yd-line bg-white px-4 py-2 text-sm font-medium text-gray-700 shadow-sm transition hover:bg-gray-50 disabled:cursor-not-allowed disabled:opacity-50;
+    }
+
+    .yd-input {
+        @apply w-full rounded-lg border border-yd-line bg-white px-3 py-2 text-sm text-gray-900 shadow-sm outline-none focus:border-yd-green focus:ring-2 focus:ring-yd-green-soft;
+    }
+
+    .yd-label {
+        @apply mb-1.5 block text-sm font-medium text-gray-700;
+    }
+
+    .yd-alert-success {
+        @apply mb-5 rounded-xl border border-emerald-200 bg-emerald-50 px-4 py-3 text-sm text-emerald-800;
+    }
+
+    .yd-file-input {
+        @apply block w-full cursor-pointer rounded-lg border border-dashed border-yd-line bg-gray-50 px-3 py-6 text-center text-sm text-gray-500 transition hover:border-yd-green hover:bg-yd-green-soft/40;
+    }
+
+    .yd-file-input::file-selector-button {
+        @apply mr-3 rounded-lg bg-yd-green px-3 py-1.5 text-sm font-medium text-white;
+    }
+
+    .yd-btn-danger {
+        @apply inline-flex items-center gap-2 rounded-lg bg-red-600 px-3 py-1.5 text-sm font-medium text-white shadow-sm transition hover:bg-red-700;
+    }
+
+    .yd-icon-btn {
+        @apply inline-flex h-8 w-8 items-center justify-center rounded-lg text-gray-400 transition hover:bg-gray-50 hover:text-gray-700;
+    }
+
+    .yd-icon-btn-danger {
+        @apply hover:bg-red-50 hover:text-red-600;
+    }
+
+    .yd-checkbox {
+        @apply h-4 w-4 rounded border-yd-line text-yd-green focus:ring-yd-green-soft;
+    }
+
+    .yd-bulk-toolbar {
+        @apply hidden items-center gap-3 rounded-lg border border-red-200 bg-red-50 px-3 py-1.5 text-sm text-red-800;
+    }
+
+    .yd-bulk-toolbar.is-visible {
+        @apply inline-flex;
+    }
+
     .yd-kpi-value {
         @apply mt-3 text-[28px] leading-none font-semibold tracking-tight text-gray-900;
     }
@@ -68,5 +120,53 @@
 
     .yd-table tbody td {
         @apply px-5 py-3.5 text-gray-600;
+    }
+
+    #app-sidebar {
+        @apply w-[248px] transition-[width] duration-200 ease-in-out;
+    }
+
+    #app-sidebar.sidebar-collapsed {
+        @apply w-[72px];
+    }
+
+    #app-sidebar .sidebar-hide-collapsed {
+        @apply transition-opacity duration-200;
+    }
+
+    #app-sidebar.sidebar-collapsed .sidebar-hide-collapsed {
+        @apply pointer-events-none absolute h-0 w-0 overflow-hidden opacity-0;
+    }
+
+    #app-sidebar.sidebar-collapsed .yd-nav-link {
+        @apply justify-center px-0;
+    }
+
+    #app-sidebar.sidebar-collapsed .yd-section-title {
+        @apply mb-0 h-0 overflow-hidden p-0 opacity-0;
+    }
+
+    #app-sidebar.sidebar-collapsed .sidebar-header {
+        @apply justify-center px-0;
+    }
+
+    #app-sidebar.sidebar-collapsed .sidebar-footer {
+        @apply px-2;
+    }
+
+    #app-sidebar.sidebar-collapsed .sidebar-footer-profile {
+        @apply justify-center;
+    }
+
+    #app-sidebar.sidebar-collapsed .dark-mode-row {
+        @apply justify-center px-0;
+    }
+
+    #app-sidebar .sidebar-expand-btn {
+        @apply hidden;
+    }
+
+    #app-sidebar.sidebar-collapsed .sidebar-expand-btn {
+        @apply flex;
     }
 }

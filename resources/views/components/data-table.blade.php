@@ -1,8 +1,19 @@
-@props(['count' => 0])
+@props(['count' => 0, 'title' => null])
 
 <div class="yd-card overflow-hidden p-0">
     <div class="flex items-center justify-between border-b border-yd-line px-5 py-3">
-        <p class="text-sm font-medium text-gray-700">{{ $count }} record{{ $count === 1 ? '' : 's' }}</p>
+        <div class="flex flex-wrap items-center gap-3">
+            <p class="text-sm font-medium text-gray-700">
+                @if ($title)
+                    <span class="font-mono text-xs text-gray-400">{{ $title }}</span>
+                    <span class="mx-2 text-gray-300">·</span>
+                @endif
+                {{ $count }} record{{ $count === 1 ? '' : 's' }}
+            </p>
+            @isset($toolbar)
+                {{ $toolbar }}
+            @endisset
+        </div>
         <a href="/api/documentation" target="_blank" class="text-sm font-medium text-yd-green hover:underline">API docs</a>
     </div>
 
