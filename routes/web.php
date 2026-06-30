@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\Web\CatamaranController;
+use App\Http\Controllers\Web\CatamaranRouteController;
 use App\Http\Controllers\Web\PageController;
 use Illuminate\Support\Facades\Route;
 
@@ -17,5 +18,8 @@ Route::post('/catamarans/{catamaran}/photos', [CatamaranController::class, 'stor
 Route::get('/bookings', [PageController::class, 'bookings'])->name('pages.bookings');
 Route::get('/guests', [PageController::class, 'guests'])->name('pages.guests');
 Route::get('/routes', [PageController::class, 'routes'])->name('pages.routes');
+Route::post('/routes', [CatamaranRouteController::class, 'store'])->name('pages.routes.store');
+Route::put('/routes/{route}', [CatamaranRouteController::class, 'update'])->name('pages.routes.update');
+Route::delete('/routes/{route}', [CatamaranRouteController::class, 'destroy'])->name('pages.routes.destroy');
 Route::get('/summaries', [PageController::class, 'summaries'])->name('pages.summaries');
 Route::get('/settings', [PageController::class, 'settings'])->name('pages.settings');

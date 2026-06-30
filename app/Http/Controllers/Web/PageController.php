@@ -57,7 +57,11 @@ class PageController extends Controller
             ->latest()
             ->get();
 
-        return view('pages.routes', compact('routes'));
+        $catamarans = Catamaran::query()
+            ->orderBy('name')
+            ->get();
+
+        return view('pages.routes', compact('routes', 'catamarans'));
     }
 
     public function summaries(): View
