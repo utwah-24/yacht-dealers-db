@@ -34,6 +34,14 @@ jobs:
           npm ci
           npm run build
 
+      # Writes the production .env from the ENV_FILE secret.
+      # If the secret is not set, no .env is created and the server's copy is untouched.
+      - name: Create production .env
+        if: ${{ secrets.ENV_FILE != '' }}
+        env:
+          ENV_FILE: ${{ secrets.ENV_FILE }}
+        run: printf '%s\n' "$ENV_FILE" > .env
+
       - name: Deploy via FTP
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
@@ -47,7 +55,6 @@ jobs:
             **/.git*
             **/.git*/**
             **/.github/**
-            **/.env
             **/.env.*
             !**/.env.example
             **/node_modules/**
