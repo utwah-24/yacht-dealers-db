@@ -1,58 +1,161 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+<div align="center">
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+# ⛵ DSM Yacht Dealers
 
-## About Laravel
+### Yacht &amp; Catamaran Fleet Management Platform
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+*Manage your fleet, routes, bookings, and guests — all from one elegant dashboard.*
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+<br/>
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+[![Laravel](https://img.shields.io/badge/Laravel-13.x-FF2D20?style=for-the-badge&logo=laravel&logoColor=white)](https://laravel.com)
+[![PHP](https://img.shields.io/badge/PHP-8.4+-777BB4?style=for-the-badge&logo=php&logoColor=white)](https://php.net)
+[![Tailwind CSS](https://img.shields.io/badge/Tailwind-4.x-06B6D4?style=for-the-badge&logo=tailwindcss&logoColor=white)](https://tailwindcss.com)
+[![Vite](https://img.shields.io/badge/Vite-8.x-646CFF?style=for-the-badge&logo=vite&logoColor=white)](https://vitejs.dev)
+[![License](https://img.shields.io/badge/License-MIT-22C55E?style=for-the-badge)](LICENSE)
 
-## Learning Laravel
+</div>
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+---
 
-In addition, [Laracasts](https://laracasts.com) contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+## 🌊 Overview
 
-You can also watch bite-sized lessons with real-world projects on [Laravel Learn](https://laravel.com/learn), where you will be guided through building a Laravel application from scratch while learning PHP fundamentals.
+**DSM Yacht Dealers** is a web platform for running a yacht and catamaran charter business. It gives operators a single dashboard to manage their fleet, publish sailing routes and destinations, take bookings, register guests, and track charter summaries — backed by a clean REST API and interactive documentation.
 
-## Agentic Development
+Whether it's a **half-day Dar es Salaam tour** or a **live-aboard Zanzibar adventure**, every catamaran, route, and reservation is organized in one place.
 
-Laravel's predictable structure and conventions make it ideal for AI coding agents like Claude Code, Cursor, and GitHub Copilot. Install [Laravel Boost](https://laravel.com/docs/ai) to supercharge your AI workflow:
+---
 
-```bash
-composer require laravel/boost --dev
+## ✨ Features
 
-php artisan boost:install
+| | Feature | Description |
+| :---: | :--- | :--- |
+| ⛵ | **Fleet Management** | Add and manage catamarans with names, services, descriptions, and photo galleries. |
+| 🗺️ | **Routes & Destinations** | Define departures with multiple destinations — one catamaran can serve many routes. |
+| 💰 | **Bookings & Pricing** | Charter types (Half day, Full day, Live Onboard) across Dar tours and Zanzibar, priced by duration. |
+| 👥 | **Guest Registration** | Capture guest details and personal requests per booking. |
+| 🧾 | **Charter Summaries** | Track a clear summary for every trip. |
+| 📸 | **Photo Uploads** | Attach and serve catamaran photos via storage links. |
+| 📊 | **Admin Dashboard** | A modern, responsive dashboard to oversee the whole operation. |
+| 🔌 | **REST API + Swagger** | Versioned `v1` API with interactive OpenAPI documentation. |
+
+---
+
+## 🧭 Data Model
+
+```
+Catamaran ──┬── Routes        (departure → many destinations)
+            ├── Photos        (gallery / storage links)
+            └── Bookings ──┬── Extras
+                           ├── Guest
+                           ├── Personal Requests ── Others
+                           └── Summary
 ```
 
-Boost provides your agent 15+ tools and skills that help agents build Laravel applications while following best practices.
+---
 
-## Contributing
+## 🛠️ Tech Stack
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+- **Backend:** Laravel 13 (PHP 8.4+)
+- **Frontend:** Blade, Tailwind CSS 4, Vite 8
+- **Database:** MySQL
+- **API Docs:** L5-Swagger (OpenAPI)
+- **Deployment:** GitHub Actions → cPanel (FTP)
 
-## Code of Conduct
+---
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+## 🚀 Getting Started
 
-## Security Vulnerabilities
+### Prerequisites
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+- PHP **8.4+**
+- Composer
+- Node.js 20+ & npm
+- MySQL
 
-## License
+### Installation
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+```bash
+# 1. Clone the repository
+git clone https://github.com/utwah-24/yacht-dealers-db.git
+cd yacht-dealers-db
+
+# 2. Install dependencies
+composer install
+npm install
+
+# 3. Set up your environment
+cp .env.example .env
+php artisan key:generate
+
+# 4. Configure your database in .env, then migrate
+php artisan migrate
+
+# 5. Build assets and start the dev server
+npm run dev
+php artisan serve
+```
+
+Visit **http://localhost:8000** and you'll land on the dashboard.
+
+---
+
+## 📡 API
+
+The REST API is versioned under the `/api/v1` prefix.
+
+| Method | Endpoint | Description |
+| :--- | :--- | :--- |
+| `GET` | `/api/v1/catamarans` | List all catamarans |
+| `POST` | `/api/v1/catamarans` | Create a catamaran |
+| `POST` | `/api/v1/catamarans/{id}/routes` | Add a route to a catamaran |
+| `POST` | `/api/v1/catamarans/{id}/photos` | Upload a catamaran photo |
+| `GET` | `/api/v1/bookings` | List all bookings |
+| `POST` | `/api/v1/bookings/{id}/guest` | Register a guest for a booking |
+| `POST` | `/api/v1/bookings/{id}/summary` | Add a charter summary |
+
+> 📖 Full interactive documentation is available via **Swagger UI** at `/api/documentation` once the app is running.
+
+---
+
+## 🖥️ Dashboard Pages
+
+| Page | Route | Purpose |
+| :--- | :--- | :--- |
+| Dashboard | `/dashboard` | Overview of the whole operation |
+| Catamarans | `/catamarans` | Manage the fleet |
+| Routes | `/routes` | Manage departures & destinations |
+| Bookings | `/bookings` | View and manage charters |
+| Guests | `/guests` | Guest records |
+| Summaries | `/summaries` | Charter summaries |
+| Settings | `/settings` | Application settings |
+
+---
+
+## 🌐 Deployment
+
+This project auto-deploys to **cPanel** on every push to `main` via GitHub Actions.
+
+1. Code is pushed to `main`
+2. GitHub Actions builds PHP + frontend assets
+3. Files are uploaded to the server over FTP
+
+> ⚠️ Database migrations are **not** run automatically. After deploying schema changes, run on the server:
+>
+> ```bash
+> php artisan migrate --force
+> ```
+
+---
+
+## 📄 License
+
+This project is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+
+<div align="center">
+
+<br/>
+
+**Built with ⛵ for the open water.**
+
+</div>
