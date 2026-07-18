@@ -37,10 +37,15 @@ jobs:
       # Writes the production .env from the ENV_FILE secret.
       # If the secret is not set, no .env is created and the server's copy is untouched.
       - name: Create production .env
-        if: ${{ secrets.ENV_FILE != '' }}
         env:
           ENV_FILE: ${{ secrets.ENV_FILE }}
-        run: printf '%s\n' "$ENV_FILE" > .env
+        run: |
+          if [ -n "$ENV_FILE" ]; then
+            printf '%s\n' "$ENV_FILE" > .env
+            echo ".env written from ENV_FILE secret"
+          else
+            echo "ENV_FILE secret not set; leaving server .env untouched"
+          fi
 
       - name: Deploy via FTP
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
