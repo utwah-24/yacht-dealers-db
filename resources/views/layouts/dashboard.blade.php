@@ -14,6 +14,7 @@
             'operations' => [
                 ['route' => 'dashboard', 'label' => 'Dashboard', 'icon' => 'M4 6h16M4 12h16M4 18h10'],
                 ['route' => 'pages.catamarans', 'label' => 'Catamarans', 'icon' => 'M3 15c3-6 6-9 9-9s6 3 9 9'],
+                ['route' => 'pages.gallery', 'label' => 'Gallery', 'icon' => 'M4 16l4.5-4.5a2 2 0 012.8 0L16 16m-2-2 1.5-1.5a2 2 0 012.8 0L20 14M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z'],
                 ['route' => 'pages.bookings', 'label' => 'Bookings', 'icon' => 'M9 5H7a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2V9l-4-4H9z'],
                 ['route' => 'pages.guests', 'label' => 'Guests', 'icon' => 'M17 20h5v-2a3 3 0 00-5.356-1.857M9 20H7m8 0H7'],
             ],

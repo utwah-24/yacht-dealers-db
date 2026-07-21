@@ -30,6 +30,17 @@ class PageController extends Controller
         return view('pages.catamarans', compact('catamarans', 'photos'));
     }
 
+    public function gallery(): View
+    {
+        $catamarans = Catamaran::query()
+            ->with(['photos' => fn ($query) => $query->orderBy('sort_order')->orderBy('id')])
+            ->withCount('photos')
+            ->orderBy('name')
+            ->get();
+
+        return view('pages.gallery', compact('catamarans'));
+    }
+
     public function bookings(): View
     {
         $bookings = Booking::query()

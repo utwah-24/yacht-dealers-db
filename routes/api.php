@@ -18,6 +18,8 @@ Route::prefix('v1')->group(function (): void {
     Route::post('catamarans/{catamaran}/photos', [CatamaranPhotoController::class, 'store']);
     Route::post('catamarans/{catamaran}/routes', [CatamaranRouteController::class, 'store']);
 
+    Route::get('photos', [CatamaranPhotoController::class, 'index']);
+    Route::patch('photos/reorder', [CatamaranPhotoController::class, 'reorder']);
     Route::delete('photos/{photo}', [CatamaranPhotoController::class, 'destroy']);
     Route::put('routes/{route}', [CatamaranRouteController::class, 'update']);
     Route::delete('routes/{route}', [CatamaranRouteController::class, 'destroy']);

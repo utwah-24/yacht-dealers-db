@@ -8,10 +8,20 @@ use App\Http\Resources\CatamaranPhotoResource;
 use App\Models\Catamaran;
 use App\Models\CatamaranPhoto;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
+use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
+use Illuminate\Support\Facades\DB;
 use OpenApi\Attributes as OA;
 
 class CatamaranPhotoController extends Controller
 {
+    public function index(): AnonymousResourceCollection
+    {
+        return CatamaranPhotoResource::collection(
+            CatamaranPhoto::query()->with('catamaran')->orderBy('catamaran_id')->orderBy('sort_order')->get()
+        );
+    }
+
     #[OA\Post(
         path: '/catamarans/{catamaranId}/photos',
         summary: 'Add a photo to a catamaran',
@@ -61,5 +71,27 @@ class CatamaranPhotoController extends Controller
         $photo->delete();
 
         return response()->json(null, 204);
+    }
+
+    public function reorder(Request $request): JsonResponse
+    {
+        $validated = $request->validate([
+            'photo_ids' => ['required', 'array'],
+            'photo_ids.*' => ['required', 'integer', 'distinct', 'exists:catamaran_photos,id'],
+        ]);
+
+        $photos = CatamaranPhoto::query()->whereIn('id', $validated['photo_ids'])->get();
+
+        if ($photos->pluck('catamaran_id')->unique()->count() !== 1 || $photos->count() !== count($validated['photo_ids'])) {
+            return response()->json(['message' => 'Only photos from the same catamaran can be arranged together.'], 422);
+        }
+
+        DB::transaction(function () use ($validated): void {
+            foreach ($validated['photo_ids'] as $position => $photoId) {
+                CatamaranPhoto::query()->whereKey($photoId)->update(['sort_order' => $position]);
+            }
+        });
+
+        return response()->json(['message' => 'Gallery order updated.']);
     }
 }
